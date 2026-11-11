@@ -41,9 +41,9 @@
                             <tbody>
                                 @forelse ($categories as $category)
                                     <tr class="border border-b-1">
-                                        <td class="px-8 py-4 text-start">Elektronik</td>
+                                        <td class="px-8 py-4 text-start">{{ $category->category_name }}</td>
                                         <td class="px-8 py-4 text-start">10 Unit</td>
-                                        <td class="px-8 py-4 text-start"><a href="">detail</a></td>
+                                        <td class="px-8 py-4 text-start"><a href="{{route('category.show', $category->uuid)}}">detail</a></td>
                                     </tr>
                                 @empty
                                     <tr class="border border-b-1">

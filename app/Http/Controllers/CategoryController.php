@@ -33,4 +33,11 @@ class CategoryController extends Controller
 
     }
 
+    public function show($param)
+    {
+        return view('category.show', [
+            'category' => Category::where('uuid', $param)->firstOrFail()
+        ]);
+    }
+
 }
