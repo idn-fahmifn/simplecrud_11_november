@@ -66,7 +66,7 @@
                     <x-input-error :messages="$errors->get('cat_name')" />
                 </div>
                 <div class="">
-                    <x-red-button type="submit">Add</x-red-button>
+                    <x-red-button type="submit">Update</x-red-button>
                 </div>
             </form>
         </div>
