@@ -57,7 +57,7 @@
     <x-modal name="create-new" :show="$errors->any()" focusable>
         <div class="p-8">
             <h3 class="text-slate-900 text-lg font-semibold">Edit Category</h3>
-            <form action="{{route('category.store')}}" method="post">
+            <form action="{{route('category.update', $category->uuid)}}" method="post">
                 @csrf
                 @method('put')
                 <div class="py-6">
