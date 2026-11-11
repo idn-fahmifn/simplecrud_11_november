@@ -12,7 +12,7 @@
                     <div class="flex justify-between">
                         <div class="">
                             <h2 class="text-gray-900 text-xl font-semibold">{{$category->category_name}}</h2>
-                            <p class="text-gray-900">List of items in the category {{$category->category_name}}</p>
+                            <p class="text-gray-900 mt-2">List of items in the category {{$category->category_name}}</p>
                         </div>
                         <div class="">
                             <x-red-button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-new')" >Edit</x-red-button>
@@ -56,12 +56,13 @@
 
     <x-modal name="create-new" :show="$errors->any()" focusable>
         <div class="p-8">
-            <h3 class="text-slate-900 text-lg font-semibold">Create New Category</h3>
+            <h3 class="text-slate-900 text-lg font-semibold">Edit Category</h3>
             <form action="{{route('category.store')}}" method="post">
                 @csrf
+                @method('put')
                 <div class="py-6">
                     <label for="cat_name">Category Name</label>
-                    <x-text-input type="text" name="cat_name" id="cat_name" class="block mt-1 w-full" required :value="old('cat_name')" />
+                    <x-text-input type="text" name="cat_name" id="cat_name" class="block mt-1 w-full" required :value="old('cat_name', $category->category_name)" />
                     <x-input-error :messages="$errors->get('cat_name')" />
                 </div>
                 <div class="">

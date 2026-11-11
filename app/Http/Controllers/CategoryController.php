@@ -30,7 +30,6 @@ class CategoryController extends Controller
 
         Category::create($simpan);
         return back()->with('status', 'Category has been created');
-
     }
 
     public function show($param)
@@ -38,6 +37,24 @@ class CategoryController extends Controller
         return view('category.show', [
             'category' => Category::where('uuid', $param)->firstOrFail()
         ]);
+    }
+
+    public function update(Request $request, $param)
+    {
+        $request->validate([
+            'cat_name' => ['required', 'string', 'min:3', 'max:30']
+        ]);
+
+        $data = Category::where('uuid', $param)->firstOrFail();
+
+        // array data yang akan disimpan
+        $simpan = [
+            'category_name' => $request->cat_name,
+            'uuid' => Str::uuid()
+        ];
+
+        $data->update($simpan);
+        return redirect()->route('category.show', $data->uuid)->with('status', 'Category has been updated');
     }
 
 }
