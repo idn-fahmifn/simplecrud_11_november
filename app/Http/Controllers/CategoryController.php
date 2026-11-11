@@ -10,4 +10,10 @@ class CategoryController extends Controller
     {
         return view('category.index');
     }
+
+    public function store(Request $request)
+    {
+        return $request;
+    }
+
 }

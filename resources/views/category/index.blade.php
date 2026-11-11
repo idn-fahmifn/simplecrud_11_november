@@ -14,7 +14,7 @@
                             <h2 class="text-gray-900 text-lg">List of category</h2>
                         </div>
                         <div class="">
-                            <x-primary-button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-new')" >Add new</x-primary-button>
+                            <x-red-button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-new')" >Add new</x-red-button>
                         </div>
                     </div>
                 </div>
@@ -60,9 +60,16 @@
 
     <x-modal name="create-new" :show="false" focusable>
         <div class="p-8">
-            <h3 class="text-slate-900">Create New Category</h3>
-            <form action="" method="post">
-                
+            <h3 class="text-slate-900 text-lg font-semibold">Create New Category</h3>
+            <form action="{{route('category.store')}}" method="post">
+                @csrf
+                <div class="py-6">
+                    <label for="cat_name">Category Name</label>
+                    <x-text-input type="text" name="cat_name" id="cat_name" class="block mt-1 w-full" required :value="old('cat_name')" />
+                </div>
+                <div class="">
+                    <x-red-button type="submit">Add</x-red-button>
+                </div>
             </form>
         </div>
     </x-modal>
