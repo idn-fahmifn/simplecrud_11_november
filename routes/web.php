@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\{CategoryController, ProfileController};
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Group agar routing wajib authentication dulu
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    // Area dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Area Category
+    Route::get('/categories', [CategoryController::class,'index'])->name('category.index');
+
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
