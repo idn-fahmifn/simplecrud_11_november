@@ -57,4 +57,11 @@ class CategoryController extends Controller
         return redirect()->route('category.show', $data->uuid)->with('status', 'Category has been updated');
     }
 
+    public function delete($param)
+    {
+        $data = Category::where('uuid', $param)->firstOrFail();
+        $data->delete();
+        return redirect()->route('category.index')->with('status', 'Category has been deleted');
+    }
+
 }

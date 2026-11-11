@@ -15,7 +15,12 @@
                             <p class="text-gray-900 mt-2">List of items in the category {{$category->category_name}}</p>
                         </div>
                         <div class="">
-                            <x-red-button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-new')" >Edit</x-red-button>
+                            <form action="{{route('category.delete', $category->uuid)}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <x-primary-button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-new')" >Edit</x-primary-button>
+                                <x-red-button type="submit" onclick="return confirm('are u sure?')" >Delete</x-red-button>
+                            </form>
                         </div>
                     </div>
                 </div>
