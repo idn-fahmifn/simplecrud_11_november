@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{CategoryController, ItemController, ProfileController};
+use App\Http\Controllers\{CategoryController, DashboardController, ItemController, ProfileController};
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,9 +12,8 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Area dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+    ->name('dashboard');
 
     // Area Category
     Route::get('/categories', [CategoryController::class,'index'])->name('category.index');
