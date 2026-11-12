@@ -59,7 +59,9 @@
                                 </div>
                                 
                             </div>
-                            <div class=""></div>
+                            <div class="border border-dashed rounded-md grid justify-center">
+                                <img src="{{asset('storage/images/items/'.$item->image)}}" alt="Image Item" class="img-fluid" width="200px" height="auto">
+                            </div>
                         </div>
                     </div>
                 </div>
