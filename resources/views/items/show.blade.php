@@ -73,7 +73,51 @@
     <x-modal name="create-new" :show="$errors->any()" focusable>
         <div class="p-8">
             <h3 class="text-slate-900 text-lg font-semibold">Edit Item</h3>
-            
+            <form action="{{route('items.update', $item->uuid)}}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('put')
+                <div class="py-2">
+                    <label for="item_name">Item Name</label>
+                    <x-text-input type="text" name="item_name" id="item_name" class="block mt-1 w-full" required :value="old('item_name', $item->item_name)" />
+                    <x-input-error :messages="$errors->get('item_name')" />
+                </div>
+                <div class="py-2">
+                    <label for="brand">Brand</label>
+                    <x-text-input type="text" name="brand" id="brand" class="block mt-1 w-full" required :value="old('brand', $item->brand)" />
+                    <x-input-error :messages="$errors->get('brand')" />
+                </div>
+                <div class="py-2">
+                    <label for="category">Category</label>
+                    <select name="category" id="category" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        <option value="" disabled>Choose Category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" @selected(old('category') ?? $category->id)>
+                                {{ $category->category_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('category')" />
+                </div>
+                <div class="py-2">
+                    <label for="stock">Stock</label>
+                    <x-text-input type="number" name="stock" id="stock" class="block mt-1 w-full" required :value="old('stock', $item->stock)" />
+                    <x-input-error :messages="$errors->get('stock')" />
+                </div>
+                <div class="py-2">
+                    <label for="image">Image</label>
+                    <img src="{{asset('storage/images/items/'.$item->image)}}" alt="Image Item" class="img-fluid" width="60px" height="auto">
+                    <x-text-input type="file" name="image" id="image" class="block mt-1 w-full py-4 px-2 border border-dashed" :value="old('image')" />
+                    <x-input-error :messages="$errors->get('image')" />
+                </div>
+                <div class="py-2">
+                    <label for="description">Description</label>
+                    <textarea name="description" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" id="description">{{old('description', $item->desc)}}</textarea>
+                    <x-input-error :messages="$errors->get('description')" />
+                </div>
+                <div class="py-4">
+                    <x-red-button type="submit">Add</x-red-button>
+                </div>
+            </form>
         </div>
     </x-modal>
 
