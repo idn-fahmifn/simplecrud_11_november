@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Detail Category') }}
+            {{ __('Detail Item') }}
         </h2>
     </x-slot>
 
@@ -11,11 +11,10 @@
                 <div class="p-6 text-gray-900">
                     <div class="flex justify-between">
                         <div class="">
-                            <h2 class="text-gray-900 text-xl font-semibold">{{$category->category_name}}</h2>
-                            <p class="text-gray-900 mt-2">List of items in the category {{$category->category_name}}</p>
+                            <h2 class="text-gray-900 text-xl font-semibold">{{$item->item_name}}</h2>
                         </div>
                         <div class="">
-                            <form action="{{route('category.delete', $category->uuid)}}" method="post">
+                            <form action="{{route('items.destroy', $item->uuid)}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <x-primary-button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-new')" >Edit</x-primary-button>
@@ -36,22 +35,32 @@
                     @endif
 
                     <div class="bg-white rounded-md overflow-hidden">
-                        <table class="w-full">
-                            <thead class="bg-red-700">
-                                <tr class="text-white">
-                                    <th class="px-8 py-4 text-start">Item Name</th>
-                                    <th class="px-8 py-4 text-start">Brand</th>
-                                    <th class="px-8 py-4 text-start">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    <tr class="border border-b-1">
-                                        <td class="px-8 py-4 text-start">Nama Barang</td>
-                                        <td class="px-8 py-4 text-start">10 Unit</td>
-                                        <td class="px-8 py-4 text-start"><a href="">detail</a></td>
-                                    </tr>                                
-                            </tbody>
-                        </table>
+                        <div class="grid grid-cols-1 md:grid-cols-2">
+                            <div class="">
+                                <div class="py-2">
+                                    <p class="font-bold">Item Name</p>
+                                    <span class="font-sm">{{$item->item_name}}</span>
+                                </div>
+                                <div class="py-2">
+                                    <p class="font-bold">Category</p>
+                                    <span class="font-sm">{{$item->category->category_name}}</span>
+                                </div>
+                                <div class="py-2">
+                                    <p class="font-bold">Brand</p>
+                                    <span class="font-sm">{{$item->brand}}</span>
+                                </div>
+                                <div class="py-2">
+                                    <p class="font-bold">Stock</p>
+                                    <span class="font-sm">{{$item->stock}} unit {{ $item->stock <= 5 ? ' | stock menipis!' : '' }} </span>
+                                </div>
+                                <div class="py-2">
+                                    <p class="font-bold">Item Description</p>
+                                    <span class="font-sm">{{$item->desc}}</span>
+                                </div>
+                                
+                            </div>
+                            <div class=""></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,19 +70,8 @@
 
     <x-modal name="create-new" :show="$errors->any()" focusable>
         <div class="p-8">
-            <h3 class="text-slate-900 text-lg font-semibold">Edit Category</h3>
-            <form action="{{route('category.update', $category->uuid)}}" method="post">
-                @csrf
-                @method('put')
-                <div class="py-6">
-                    <label for="cat_name">Category Name</label>
-                    <x-text-input type="text" name="cat_name" id="cat_name" class="block mt-1 w-full" required :value="old('cat_name', $category->category_name)" />
-                    <x-input-error :messages="$errors->get('cat_name')" />
-                </div>
-                <div class="">
-                    <x-red-button type="submit">Update</x-red-button>
-                </div>
-            </form>
+            <h3 class="text-slate-900 text-lg font-semibold">Edit Item</h3>
+            
         </div>
     </x-modal>
 

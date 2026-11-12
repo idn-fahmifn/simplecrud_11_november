@@ -45,11 +45,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse ($items as $item)
                                     <tr class="border border-b-1">
-                                        <td class="px-8 py-4 text-start">Nama Barang</td>
-                                        <td class="px-8 py-4 text-start">10 Unit</td>
-                                        <td class="px-8 py-4 text-start"><a href="">detail</a></td>
-                                    </tr>                                
+                                        <td class="px-8 py-4 text-start">{{$item->item_name}}</td>
+                                        <td class="px-8 py-4 text-start">{{$item->stock}} unit</td>
+                                        <td class="px-8 py-4 text-start"><a href="{{route('items.show', $item->uuid)}}">detail</a></td>
+                                    </tr>    
+                                @empty
+                                    <tr class="border border-b-1">
+                                        <td class="px-8 py-4 text-center" colspan="3">Item not found</td>
+                                    </tr>
+                                @endforelse
+                                                                
                             </tbody>
                         </table>
                     </div>

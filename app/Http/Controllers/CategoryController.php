@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-use App\Models\Category;
+use App\Models\{Category, Item};
 
 class CategoryController extends Controller
 {
     public function index()
     {
         return view('category.index', [
-            'categories' => Category::all()
+            'categories' => Category::withCount('item')->get()
         ]);
     }
 
@@ -34,8 +34,10 @@ class CategoryController extends Controller
 
     public function show($param)
     {
+        $category = Category::where('uuid', $param)->firstOrFail();
         return view('category.show', [
-            'category' => Category::where('uuid', $param)->firstOrFail()
+            'category' => $category,
+            'items' => Item::where('category_id', $category->id)->get()
         ]);
     }
 

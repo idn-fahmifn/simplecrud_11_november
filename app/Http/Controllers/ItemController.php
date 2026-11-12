@@ -68,10 +68,11 @@ class ItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($param)
     {
         return view('items.show', [
-
+            'item' => Item::where('uuid', $param)->firstOrFail(),
+            'categories' => Category::all()
         ]);
     }
 
