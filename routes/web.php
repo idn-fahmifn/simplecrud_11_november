@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{CategoryController, ProfileController};
+use App\Http\Controllers\{CategoryController, ItemController, ProfileController};
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,6 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/categories/{param}', [CategoryController::class,'show'])->name('category.show');
     Route::put('/categories/{param}', [CategoryController::class,'update'])->name('category.update');
     Route::delete('/categories/{param}', [CategoryController::class,'delete'])->name('category.delete');
+
+    Route::resource('/items', ItemController::class);
 
 
 });
