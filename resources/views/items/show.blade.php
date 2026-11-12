@@ -91,7 +91,7 @@
                     <select name="category" id="category" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                         <option value="" disabled>Choose Category</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" @selected(old('category') ?? $category->id)>
+                            <option value="{{ $category->id }}" @selected(old('category', $item->category_id) == $category->id)>
                                 {{ $category->category_name }}
                             </option>
                         @endforeach
@@ -115,7 +115,7 @@
                     <x-input-error :messages="$errors->get('description')" />
                 </div>
                 <div class="py-4">
-                    <x-red-button type="submit">Add</x-red-button>
+                    <x-red-button type="submit">Edit</x-red-button>
                 </div>
             </form>
         </div>
