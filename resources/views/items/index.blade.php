@@ -65,7 +65,7 @@
     <x-modal name="create-new" :show="$errors->any()" focusable>
         <div class="p-8">
             <h3 class="text-slate-900 text-lg font-semibold">Create New Item</h3>
-            <form action="{{route('items.store')}}" method="post">
+            <form action="{{route('items.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="py-2">
                     <label for="item_name">Item Name</label>
